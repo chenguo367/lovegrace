@@ -42,6 +42,7 @@ class Py21PointGame:
         self.show_suit = self.getConfData(u"是否需要显示扑克花色?")
         self.show_audit = self.getConfData(u"是否需要统计数据?")
         self.getData(u"按任意键开始...")
+        self.send("loading...\n")
 
     def createQuestion(self,pokercount):
         """出题"""
@@ -51,7 +52,6 @@ class Py21PointGame:
         for index in range(pokercount):
             table_window.append(card_list[index], [1, index * 6 + 1])
         args = [pk.value for pk in pklist]
-        sys.stdout.write("loading...\n")
         solution = count_21_point(self.target,True,tuple(args))
         if not solution :
             table_window,solution = self.createQuestion(pokercount)
