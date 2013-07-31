@@ -59,4 +59,22 @@ _="""
 检查一个正整数N是否为素数，最简单的方法就是试除法，将该数N用小于等于根号N的所有素数去试除，
 若均无法整除，则N为素数，参见素数判定法则。
 """
+def get_prime(n,prime_list):
+    if n < 2 or n in prime_list: return prime_list
+    for i in prime_list:
+        if i < int(n**0.5)+1:
+            if n%i == 0: return prime_list
+        else:
+            break
+    prime_list.append(n)
+    print n
+    return prime_list
+i=0
+#种子
+prime_list = [2]
+while i<100 and 1:
+    prime_list  = get_prime(i,prime_list)
+    i+=1
+print prime_list
+
 
