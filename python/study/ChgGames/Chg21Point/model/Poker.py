@@ -30,6 +30,7 @@ class Poker:
             raise e
         if num < 1 or num > 52:
             raise PokerValueError(num,"is not allow to create Poker instance")
+        self.src = num
         quotient , self.value = num/self.len_A_K , num%self.len_A_K
         if self.value == 0:
             #K的情况
