@@ -33,8 +33,8 @@ class Py21PointGame:
         }
         self.pkp = PokerPool()
         self.wantexit = False
-        self.introduce()
-        self.start(pokercount)
+        self.pokercount = pokercount
+        # self.start(pokercount)
 
     def introduce(self):
         """介绍规则"""
@@ -52,6 +52,7 @@ class Py21PointGame:
         for index in range(pokercount):
             table_window.append(card_list[index], [1, index * 6 + 1])
         args = [pk.value for pk in pklist]
+        # print table_window
         solution = count_21_point(self.target,True,tuple(args))
         if not solution :
             table_window,solution = self.createQuestion(pokercount)
@@ -62,9 +63,10 @@ class Py21PointGame:
             table_window = ' '+' '.join(suit_info)+str(table_window)
         return table_window,solution
 
-    def start(self,pokercount):
+    def start(self):
+        self.introduce()
         while not self.wantexit:
-            question,solution = self.createQuestion(pokercount)
+            question,solution = self.createQuestion(self.pokercount)
             #统一sendAsk出口为utf-8
             if isinstance(question,unicode):
                 question = question.encode('utf-8')
@@ -147,24 +149,23 @@ class Py21PointGame:
     def verify(self,rcv_data,solution):
         """验证结果"""
         rcv_data = rcv_data.lower()
-        rcv_data = rcv_data.replace("a","1")
-        rcv_data = rcv_data.replace("j","11")
-        rcv_data = rcv_data.replace("q","12")
-        rcv_data = rcv_data.replace("k","13")
-        regex = r"[+/()\-\*]+"
-        sep = '_'
+        rcv_data = rcv_data.replace("a","1.0")
+        rcv_data = rcv_data.replace("j","11.0")
+        rcv_data = rcv_data.replace("q","12.0")
+        rcv_data = rcv_data.replace("k","13.0")
+        #todo '6*(9-(11/2))'
+        num_regex = r"\b[0-9]*\.?[0-9]+\b"
+        reobj = re.compile(num_regex)
         try:
-            result = eval(rcv_data)
+            result = int(eval(rcv_data))
             if result != self.target:
                 raise
         except:
             return 0
-        user_input = re.sub(regex, sep, rcv_data)
+        user_input = [int(i) for i in reobj.findall(rcv_data)]
         if isinstance(solution,list):
             solution = solution[0]
-        benchmark = re.sub(regex, sep, solution)
-        user_input = user_input.strip(sep).split(sep)
-        benchmark = benchmark.strip(sep).split(sep)
+        benchmark = [int(i) for i in reobj.findall(solution)]
         for num in user_input:
             if num not in benchmark:
                 return 0
@@ -182,3 +183,4 @@ class Py21PointGameServer(Py21PointGame):
 
 if __name__ == '__main__':
     p = Py21PointGame(4)
+    p.start()
