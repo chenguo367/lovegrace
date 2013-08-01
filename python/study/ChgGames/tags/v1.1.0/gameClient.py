@@ -94,9 +94,9 @@ class StreamInput(object):
     data = ""
     t = None
 
-    # def getData(self,prompt=''):
-    #     data = raw_input(prompt)
-    #     return data
+    def getData(self,prompt=''):
+        data = raw_input(prompt)
+        return data
     # def getData(self,prompt=''):
     #
     #     self.data = sys.stdin.readline(False)
