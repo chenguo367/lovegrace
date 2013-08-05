@@ -1,0 +1,12 @@
+﻿--这是一个用户接口，用来配置机器码对应的权限
+--动作：   改(增)   删
+--关键字：  set    del
+--set [machine_num]  [alpha|beta|gamma|stable]
+--del [machine_num]
+--例子：设置机器码E99EEBA15310FDB1E5B00038EFBB4B5D的权限为alpha
+--set E99EEBA15310FDB1E5B00038EFBB4B5D alpha
+--例子：删除机器码E99EEBA15310FDB1E5B00038EFBB4B5D的权限
+--del E99EEBA15310FDB1E5B00038EFBB4B5D
+--note:"--"是注释语句，前面加了注释标识的命令不会被执行，非法的命令将被直接过滤。
+----------------------------------------------------------------
+--here start!

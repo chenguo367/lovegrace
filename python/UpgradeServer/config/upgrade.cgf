@@ -1,0 +1,9 @@
+[FileData]
+path = data
+
+[VersionControl]
+default_version = gamma
+enabled = on
+
+[MachineAccess]
+
